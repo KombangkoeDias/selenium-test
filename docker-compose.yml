@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+
+  seleniumgrid:
+    image: selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210823      
+    ports:
+      - "4444:4444"
+
+  faucet:
+    image: faucet:latest
+    links:
+      - seleniumgrid:seleniumgrid
+    build: faucet

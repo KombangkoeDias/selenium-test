@@ -9,11 +9,28 @@ class tokens(Enum):
     MATIC = "MATIC"
     LINK = "LINK"
 
+driver = ""
+
+def getDriver():
+    global driver
+    try:
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Remote(command_executor="http://172.21.0.2:4444",
+            desired_capabilities=webdriver.DesiredCapabilities.CHROME, options=options)
+    except Exception as e:
+        time.sleep(1)
+        print(e)
+        getDriver()
+
+
 def faucet(token, address):
     try:
-        driver = webdriver.Remote("http://localhost:4444")
-        #driver = webdriver.Firefox()
-        driver.get("https://faucet.matic.network/")
+        # options = webdriver.ChromeOptions()
+        # driver = webdriver.Remote(command_executor="http://localhost:4444",
+        #     desired_capabilities=webdriver.DesiredCapabilities.CHROME, options=options)
+        # #driver = webdriver.Firefox()
+        getDriver()
+        driver.get("https://faucet.matic.network")
 
         if token == tokens.MATIC:
             radioElement = driver.find_element_by_css_selector("input[type='radio'][value='maticToken']")
@@ -65,7 +82,8 @@ def faucet(token, address):
                     parent = header.parent
                     content = parent.find_element_by_css_selector("div.card-content")
                     print("Reason:",content.get_attribute("innerHTML"))
-
+        driver.close()
+        driver.quit()
     except Exception as e:
         print("Error:", e)
 
