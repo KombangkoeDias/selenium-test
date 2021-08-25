@@ -1,3 +1,3 @@
 build:
   docker:
-    web: faucet/Dockerfile
+    web: selenium/standalone-chrome:4.0.0-rc-1-prerelease-20210823
