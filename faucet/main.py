@@ -15,7 +15,7 @@ def getDriver():
     global driver
     try:
         options = webdriver.ChromeOptions()
-        driver = webdriver.Remote(command_executor="http://172.21.0.2:4444",
+        driver = webdriver.Remote(command_executor="http://seleniumgrid:4444",
             desired_capabilities=webdriver.DesiredCapabilities.CHROME, options=options)
     except Exception as e:
         time.sleep(1)
